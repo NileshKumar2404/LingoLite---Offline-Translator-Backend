@@ -5,7 +5,10 @@ const languageSchema = new mongoose.Schema({
     code: String,
     fileUrl: String,
     size: String,
-    updatedAt: String
+    updatedAt: {
+        type: Date,
+        default: Date.now
+    }
 })
 
 export const Language = mongoose.model("Language", languageSchema)
