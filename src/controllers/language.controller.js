@@ -2,15 +2,24 @@ import {asyncHandler} from "../utils/asynchandler.js"
 import {ApiError} from "../utils/ApiError.js"
 import {ApiResponse} from "../utils/ApiResponse.js"
 import { Language } from "../models/Languagepack.models.js"
+import { uploadOnCloudinary } from "../utils/cloudinary.js"
 
 const uploadLanguagePack = asyncHandler(async(req, res) => {
     try {
-        const {name, code, fileUrl, size} = req.body
+        const {name, code, size} = req.body
+
+        const localFilePath = req.file?.path
+        if (!localFilePath) {
+            throw new ApiError(400, "No file found in the request");
+        }
+
+        const uploadUrl = await uploadOnCloudinary(localFilePath)
+        if(!uploadUrl) throw new ApiError(401, "Failed to upload on cloudinary.")
 
         const newPack = await Language.create({
             name,
             code, 
-            fileUrl,
+            fileUrl: uploadUrl.url,
             size,
             updatedAt: new Date()
         })

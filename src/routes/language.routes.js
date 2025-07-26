@@ -6,12 +6,7 @@ import { upload } from "../middlewares/multer.middleware.js";
 const router = Router()
 
 router.route("/upload-languagepack").post(
-    upload.fields([
-        {
-            name: 'fileUrl', 
-            maxCount: 1
-        }
-    ]),
+    upload.single('fileUrl'),
     verifyJWT,
     uploadLanguagePack
 )
