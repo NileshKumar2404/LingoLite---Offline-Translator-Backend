@@ -21,7 +21,9 @@ app.use((req, res, next) => {
 
 
 import userRouter from "./routes/user.routes.js"
+import languageRouter from "./routes/language.routes.js"
 
 app.use("/api/v1/user", userRouter)
+app.use("/api/v1/language", languageRouter)
 
 export {app}
