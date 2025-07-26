@@ -1,5 +1,5 @@
 import { Router } from "express";
-import {verifyJWT} from "../middlewares/authmiddleware.js"
+import {verifyJWT} from "../middlewares/auth.middleware.js"
 import { getAllLanguagePacks, uploadLanguagePack } from "../controllers/language.controller.js";
 
 const router = Router()
